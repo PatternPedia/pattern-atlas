@@ -18,14 +18,13 @@
 
 export const environment = {
   production: false,
-  repositoryUrl: 'http://localhost:8080',
+  repositoryUrl: 'http://localhost:8080/patternpedia',
   authorizeUrl: 'http://localhost:8081/oauth/authorize?',
   tokenUrl: 'http://localhost:8081/oauth/token',
   tokenRevokeUrl: 'http://localhost:8081/oauth/revoke_token',
   signinUrl: 'http://localhost:8081/user/create',
   userInfoUrl: 'http://localhost:8081/user_info',
   clientIdPrivate: 'pattern-pedia-private',
-  clientSecret: 'pattern-pedia-secret',
   clientIdPublic: 'pattern-pedia-public',
   clientIdPKCE: 'pattern-pedia-pkce',
 };

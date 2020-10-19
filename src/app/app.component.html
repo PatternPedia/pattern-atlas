@@ -13,16 +13,23 @@
   -->
 
 <mat-toolbar color="primary">
-  <mat-icon>library_books</mat-icon>
-  <span style="margin-left: 1rem">Pattern Atlas</span>
-  <span class="spacer"></span>
-  {{welcomeText}}
-  <div class="log-button">
-    <button mat-stroked-button (click)="loginOAuth()"> {{ loginButton }}</button>
-  </div>
+    <mat-icon>library_books</mat-icon>
+    <span style="margin-left: 1rem">PatternAtlas</span>
+
+    <span class="spacer"></span>
+    <div class="log-button">
+        <button *ngIf="!loggedIn" mat-button (click)="login()"> Login </button>
+        <button *ngIf="loggedIn" mat-button [matMenuTriggerFor]="menu">Hello {{userName}} <mat-icon>more_vert</mat-icon></button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item routerLink="/user-info"> UserInfo </button>
+            <button *ngIf="p.hidden('USER_READ_ALL') | async" mat-menu-item routerLink="/admin"> Admin </button>
+            <!-- <button mat-menu-item routerLink="/developer"> Developer </button> -->
+            <button mat-menu-item color="warn" (click)="logout()"> Logout </button>
+        </mat-menu>
+    </div>
 </mat-toolbar>
 <nav mat-tab-nav-bar>
-  <a mat-tab-link [routerLink]="'/' + pathConstants.patternLanguages"
+    <a mat-tab-link [routerLink]="'/' + pathConstants.patternLanguages"
      routerLinkActive #rla1="routerLinkActive" [active]="rla1.isActive">
     Pattern Languages
   </a>
@@ -41,18 +48,6 @@
   <a mat-tab-link [routerLink]="'/issue'" *ngIf="featureToggles.issue"
      routerLinkActive #rla5="routerLinkActive" [active]="rla5.isActive">
     Issue
-  </a>
-  <a mat-tab-link [routerLink]="'/user'" *ngIf="(auth.hasRole('MEMBER') | async)"
-     routerLinkActive #rla6="routerLinkActive" [active]="rla6.isActive">
-    Personal
-  </a>
-  <a mat-tab-link [routerLink]="'/admin'" *ngIf="(auth.hasRole('ADMIN') | async)"
-     routerLinkActive #rla7="routerLinkActive" [active]="rla7.isActive">
-    Admin
-  </a>
-  <a mat-tab-link [routerLink]="'/developer'" *ngIf="(auth.hasRole('ADMIN') | async)"
-     routerLinkActive #rla8="routerLinkActive" [active]="rla8.isActive">
-    Developer
   </a>
 </nav>
 

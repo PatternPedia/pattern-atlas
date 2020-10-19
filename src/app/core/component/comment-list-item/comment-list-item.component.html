@@ -1,0 +1,36 @@
+<mat-card>
+    <form class="container" (ngSubmit)="update()" #commentForm="ngForm">
+
+        <span class="wrapper-user" (click)="authorInfo">{{comment.userName}}</span>
+
+        <mat-form-field class="wrapper-input" appearance="standard">
+            <textarea matInput [disabled]="disabled" [(ngModel)]="comment.text" name="comment" required></textarea>
+        </mat-form-field>
+         <div class="wrapper-buttons">
+            <button *ngIf="!disabled" mat-flat-button type="submit" color="primary"
+                [disabled]="!commentForm.form.valid">
+                Save </button>
+            <button *ngIf="!disabled" mat-flat-button type="button" color="" (click)="cancel()"> Cancel
+            </button>
+            <button *ngIf="disabled" mat-flat-button type="button" color="primary" (click)="edit()"
+                [disabled]="p.disabled(comment.userId) | async"> Edit </button>
+            <button *ngIf="disabled" mat-flat-button type="button" color="warn" (click)="delete()"
+                [disabled]="p.disabled(comment.userId) | async"> Delete </button>
+        </div>
+        <pp-rating class="wrapper-rating" [row]="false" [upVotes]="comment.upVotes" [downVotes]="comment.downVotes"
+        [total]="comment.rating" (ratingEvent)="updateRating($event)"></pp-rating>
+    </form>
+</mat-card>
+
+<mat-card class="replyComment" *ngIf="replyComment">
+    <mat-form-field appearance="standard">
+        <mat-label>Reply</mat-label>
+        <textarea matInput [formControl]="commentCtrl"></textarea>
+    </mat-form-field>
+    <div class="">
+        <button mat-flat-button type="button" color="primary" (click)="edit()"
+            [disabled]="p.disabled(comment.userId) | async"> Save </button>
+        <button mat-flat-button type="button" color="" (click)="reply()"> Cancel
+        </button>
+    </div>
+</mat-card>

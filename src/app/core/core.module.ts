@@ -70,9 +70,18 @@ import { IssueManagementService } from './issue-management/_services/issue-manag
 import { IssueManagementStore } from './issue-management/_store/issue-management-store';
 import { CandidateManagementService } from './candidate-management/_services/candidate-management.service';
 import { CandidateManagementStore } from './candidate-management';
-import { MatTreeModule } from '@angular/material/tree';
-import { MatFormFieldModule } from '@angular/material/form-field';
-
+import { AuthorManagementService } from './author-management';
+import { CommentListItemComponent } from './component/comment-list-item/comment-list-item.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { PatternLanguagePickerComponent } from './component/pattern-language-picker/pattern-language-picker.component';
+import { AuthorPickerComponent } from './component/author-picker/author-picker.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatChipsModule } from '@angular/material/chips';
+import { ConfirmDialogComponent } from './component/confirm-dialog/confirm-dialog.component';
+import { EvidenceListComponent } from './component/evidence-list/evidence-list.component';
+import { EvidenceDialogComponent } from './component/evidence-dialog/evidence-dialog.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { RatingMultipleComponent } from './component/rating-multiple/rating-multiple.component';
 
 @NgModule({
   imports: [
@@ -86,7 +95,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     FlexLayoutModule,
     MatProgressSpinnerModule,
     MatListModule,
-    MatFormFieldModule,
     MatDatepickerModule, MatInputModule,
     ReactiveFormsModule,
     MatTooltipModule,
@@ -97,12 +105,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatBadgeModule,
     MatExpansionModule,
     MatButtonToggleModule,
-    MatTreeModule,
     NgxMdModule.forRoot(),
     MatNativeDateModule,
     RouterModule,
     MatSortModule,
     FormsModule,
+    ScrollingModule,
+    MatRadioModule,
+    MatChipsModule,
+    MatCheckboxModule,
   ],
   exports: [
     CovalentTextEditorModule,
@@ -113,10 +124,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     CardRendererComponent,
     ActionButtonBarComponent,
     RatingComponent,
+    RatingMultipleComponent,
     CommentListComponent,
     ToggleRendererComponent,
-    GraphDisplayComponent
-  ],
+    GraphDisplayComponent,
+    PatternLanguagePickerComponent,
+    AuthorPickerComponent,
+    EvidenceListComponent,
+  ]
+  ,
   providers: [
     PatternLanguageService,
     PatternService,
@@ -129,7 +145,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     IssueManagementStore,
     // CANDIDATE
     CandidateManagementService,
-    CandidateManagementStore
+    CandidateManagementStore,
+    // SHARED
+    AuthorManagementService,
   ],
   declarations: [
     DefaultPlRendererComponent,
@@ -150,7 +168,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     CommentListComponent,
     ToggleRendererComponent,
     DeletePatternRelationComponent,
-    CreativeLicenseFooterComponent
+    CreativeLicenseFooterComponent,
+    CommentListItemComponent,
+    PatternLanguagePickerComponent,
+    AuthorPickerComponent,
+    ConfirmDialogComponent,
+    EvidenceListComponent,
+    EvidenceDialogComponent,
+    RatingMultipleComponent,
   ],
   entryComponents: [
     DefaultPlRendererComponent,
@@ -162,7 +187,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MarkdownPatternSectionContentComponent,
     CardRendererComponent,
     GraphDisplayComponent,
-    CreateEditPatternLanguageComponent
+    CreateEditPatternLanguageComponent,
+    ConfirmDialogComponent,
+    EvidenceDialogComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

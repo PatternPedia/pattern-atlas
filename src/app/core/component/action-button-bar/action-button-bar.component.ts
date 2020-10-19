@@ -18,24 +18,27 @@ export class ActionButtonBarComponent implements OnInit {
   @Input() firstAddButton = true;
   @Input() secondAddButtonText: string;
 
-  @Input() displayText: string;
+    @Input() back = false;
+    @Output() backClicked = new EventEmitter<void>();
 
-  constructor(private cdr: ChangeDetectorRef,
+    @Input() displayText: string;
+
+    constructor(private cdr: ChangeDetectorRef,
               private applicationRef: ApplicationRef) {
-  }
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  addButtonClicked() {
-    this.addClicked.emit();
-  }
+    addButtonClicked() {
+      this.addClicked.emit();
+    }
 
-  reloadButtonClicked() {
-    this.reloadClicked.emit();
-  }
+    reloadButtonClicked() {
+      this.reloadClicked.emit();
+    }
 
-  secondAddButtonClicked() {
-    this.add2Clicked.emit();
-  }
+    secondAddButtonClicked() {
+      this.add2Clicked.emit();
+    }
 }

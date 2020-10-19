@@ -42,7 +42,11 @@ import { MatListModule } from '@angular/material/list';
 import { LandingPageComponent } from './core/component/landing-page/landing-page.component';
 import { PageNotFoundComponent } from './core/component/page-not-found/page-not-found.component';
 import { AuthenticationModule } from './authentication/authentication.module';
+import { MatMenuModule } from '@angular/material/menu';
+import { IssueManagementModule } from './issue-management/issue-management.module';
+import { CandidateManagementModule } from './candidate-management/candidate-management.module';
 import { DesignModelModule } from './design-model-module/design-model.module';
+//import { FilterViewComponent } from './filter/component/filter-view/filter-view.component';
 
 
 @NgModule({
@@ -50,15 +54,13 @@ import { DesignModelModule } from './design-model-module/design-model.module';
     AppComponent,
     PageNotFoundComponent,
     LandingPageComponent,
+    //FilterViewComponent
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
     AuthenticationModule,
-    PatternLanguageManagementModule,
-    PatternViewManagementModule,
-    DesignModelModule,
     MatToolbarModule,
     MatIconModule,
     MatCardModule,
@@ -78,6 +80,10 @@ import { DesignModelModule } from './design-model-module/design-model.module';
     JwtModule,
     MatSidenavModule,
     MatListModule,
+    MatMenuModule,
+
+    IssueManagementModule,
+    CandidateManagementModule,
   ],
   providers: [
     CookieService,

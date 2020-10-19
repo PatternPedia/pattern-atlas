@@ -12,43 +12,48 @@
  * SPDX-License-Identifier: EPL-2.0 OR Apache-2.0
  */
 
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit } from '@angular/core';
 import { AuthenticationService } from './authentication/_services/authentication.service';
-import { PAUser } from './core/user-management';
+import { PrivilegeService } from './authentication/_services/privilege.service';
 import { globals } from './globals';
-
 
 @Component({
   selector: 'pp-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   readonly featureToggles = globals.featureToggles;
-  loginButton = 'Login';
-  welcomeText = '';
-  user: PAUser;
   readonly pathConstants = globals.pathConstants;
+  userName: string;
+  loggedIn = false;
 
 
-  constructor(public auth: AuthenticationService) {
-    this.auth.userSubject.subscribe(_user => {
-      if (_user) {
-        console.log('User is Logged in: ', _user);
-        this.user = _user;
-        this.loginButton = 'Logout';
-        this.welcomeText = `Welcome ${_user.name}`;
-      } else {
-        console.log('No user logged in: ', _user);
-        this.user = null;
-        this.loginButton = 'Login';
-        this.welcomeText = '';
-      }
-    });
+  constructor(
+    public auth: AuthenticationService,
+    public p: PrivilegeService,
+    private ref: ChangeDetectorRef
+  ) {
   }
 
-  loginOAuth() {
-    this.user ? this.auth.logout() : this.auth.login();
+  ngOnInit(): void {
+    this.auth.user.subscribe(_user => {
+      if (_user) {
+        this.userName = _user.name;
+        this.loggedIn = true;
+      } else {
+        this.userName = null;
+        this.loggedIn = false;
+      }
+    })
+  }
+
+  login() {
+    this.auth.login();
+  }
+
+  logout() {
+    this.auth.logout();
   }
 }

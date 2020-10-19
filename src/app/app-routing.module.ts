@@ -1,12 +1,14 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {ProcessOauthCallbackComponent} from './core/component/process-oauth-callback/process-oauth-callback.component';
-import {ToasterModule} from 'angular2-toaster';
-import {PageNotFoundComponent} from './core/component/page-not-found/page-not-found.component';
-import {AuthGuardService as AuthGuard} from './authentication/_services/auth-guard.service';
-import {PatternLanguageManagementResolverService} from './pattern-language-management/pattern-language-management/pattern-language-management-resolver.service'; // eslint-disable-line max-len
-import {UserRole} from './core/user-management';
-import {globals} from './globals';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { ProcessOauthCallbackComponent } from './core/component/process-oauth-callback/process-oauth-callback.component';
+import { ToasterModule } from 'angular2-toaster';
+import { PageNotFoundComponent } from './core/component/page-not-found/page-not-found.component';
+import { AuthGuardService as AuthGuard } from './authentication/_services/auth-guard.service';
+import { PatternLanguageManagementResolverService } from './pattern-language-management/pattern-language-management/pattern-language-management-resolver.service'; // eslint-disable-line max-len
+import { UserRole } from './core/user-management';
+import { PrintHook } from '@angular/flex-layout';
+import { Privilege } from './core/user-management/_models/privilege.enum';
+import { globals } from './globals';
 /*
  * Copyright (c) 2018 University of Stuttgart.
  *
@@ -51,23 +53,23 @@ const routes: Routes = [
     loadChildren: () => import('./issue-management/issue-management.module').then(m => m.IssueManagementModule),
   },
   {
-    path: 'user',
+    path: 'user-info',
     loadChildren: () => import('./user-management/user-management.module').then(m => m.UserManagementModule),
     canActivate: [AuthGuard],
-    data: {role: UserRole.MEMBER}
+    data: { privilege: Privilege.USER_READ }
   },
   {
     path: 'admin',
     loadChildren: () => import('./admin-management/admin-management.module').then(m => m.AdminManagementModule),
     canActivate: [AuthGuard],
-    data: {role: UserRole.ADMIN}
+    data: { privilege: Privilege.USER_READ_ALL }
   },
-  {
-    path: 'developer',
-    loadChildren: () => import('./developer-management/developer-management.module').then(m => m.DeveloperManagementModule),
-    canActivate: [AuthGuard],
-    data: {role: UserRole.ADMIN}
-  },
+  // {
+  //   path: 'developer',
+  //   loadChildren: () => import('./developer-management/developer-management.module').then(m => m.DeveloperManagementModule),
+  //   canActivate: [AuthGuard],
+  //   data: { privilege: Privilege.DEVELOPER }
+  // },
   {
     path: 'oauth-callback',
     component: ProcessOauthCallbackComponent
@@ -75,7 +77,7 @@ const routes: Routes = [
   {
     path: '**',
     component: PageNotFoundComponent
-  }
+  },
 ];
 
 @NgModule({
